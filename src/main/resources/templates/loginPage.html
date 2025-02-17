@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <th:block th:include="fragment/my-fragments::header"></th:block>
+
+</head>
+<body>
+<th:block th:include="fragment/my-fragments::language"></th:block>
+<span>Login Page</span>
+<form action="/login" method="post">
+    <input type="text" name="username" placeholder="username"><br>
+    <input type="password" name="password" placeholder="password"><br>
+    <input type="submit" value="Login">
+</form>
+<br>
+<th:block th:include="fragment/my-fragments::footer"></th:block>
+
+</body>
+</html>

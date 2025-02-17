@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Authors</title>
+</head>
+<body>
+Authors page | <a href="/authors/add">Add</a>
+<br>
+
+
+Search:<form action="/authors/search" method="get">
+<input type="text" name="keyword">
+<input type="submit" value="search">
+</form>
+Filter:<form action="/authors/filter" method="get">
+    name:<input type="text" name="name"><br>
+    surname:<input type="text" name="surname"><br>
+    phone:<input type="text" name="phone"><br>
+    gender:<select name="gender">
+    <option value="">-</option>
+    <option value="MALE">MALE</option>
+    <option value="FEMALE">FEMALE</option>
+</select>
+    <input type="submit" value="filter">
+</form>
+
+<table>
+    <tr>
+        <th>id</th>
+        <th>name</th>
+        <th>surname</th>
+        <th>phone</th>
+        <th>date of birthday</th>
+        <th>gender</th>
+        <th>action</th>
+    </tr>
+    <tr th:each="author : ${authors.content}">
+        <td th:text="${author.id}"></td>
+        <td th:text="${author.name}"></td>
+        <td th:text="${author.surname}"></td>
+        <td th:text="${author.phone}"></td>
+        <td th:text="${ #dates.format(author.dateOfBirthday, 'yyyy-MM-dd')}"></td>
+        <td th:text="${author.gender.name()}"></td>
+        <td><a th:href="@{/authors/edit(id=${author.id})}">Edit</a> | <a th:href="@{/authors/delete(id=${author.id})}">Delete</a>
+        </td>
+    </tr>
+</table>
+<br>
+
+
+<div th:if="${authors.totalPages > 0}" class="pagination"
+     th:each="pageNumber : ${pageNumbers}">
+    <a th:href="@{/authors(pageSize=${authors.size}, pageNumber=${pageNumber})}"
+       th:text="${pageNumber}"
+       th:class="${pageNumber==authors.number + 1} ? active"></a>
+</div>
+<br>
+<br>
+
+<th:block th:include="fragment/my-fragments::footer"></th:block>
+
+</body>
+</html>

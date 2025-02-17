@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Books</title>
+</head>
+<body>
+Books page
+<a href="/books/add">Add book</a>
+<table>
+    <tr>
+        <th>id</th>
+        <th>image</th>
+        <th>title</th>
+        <th>price</th>
+        <th>quantity</th>
+        <th>author name</th>
+        <th>author surname</th>
+        <th>created at</th>
+        <th>action</th>
+
+    </tr>
+    <tr th:each="book : ${books}">
+        <td th:text="${book.id}"></td>
+        <td><img th:if="${book.imageName != null }" th:src="@{/getImage(imageName=${book.imageName})}" width="100"></td>
+        <td th:text="${book.title}"></td>
+        <td th:text="${book.price}"></td>
+        <td th:text="${book.quantity}"></td>
+        <td th:text="${book.author.name}"></td>
+        <td th:text="${book.author.surname}"></td>
+        <td th:text="${ #dates.format(book.createdAt, 'yyyy-MM-dd')}"></td>
+        <td><a th:href="@{/books/edit(id=${book.id})}">Edit</a> | <a
+                th:href="@{/books/delete(id=${book.id})}">Delete</a>
+        </td>
+    </tr>
+</table><br>
+<th:block th:include="fragment/my-fragments::footer"></th:block>
+
+</body>
+</html>
